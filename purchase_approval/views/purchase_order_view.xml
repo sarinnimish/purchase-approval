@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+<data>
+       <record id="action_purchase_order" model="ir.actions.act_window">
+           <field name="name">purchase.order</field>
+           <field name="res_model">purchase.order</field>
+           <field name="view_mode">form</field>
+        </record>
+
+
+    <record id="view_purchase_order_form_inherit" model="ir.ui.view">
+        <field name="name">purchase.order.form.inherit</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        <field name="arch" type="xml">
+   
+        <xpath expr="//field[@name='state']" position="attributes">
+                <attribute name="widget">statusbar</attribute>
+                <attribute name="statusbar_visible">draft,sent,purchase</attribute>
+            </xpath>
+
+
+        <xpath expr="//header//button[@name='button_approve']" position="attributes">
+               <attribute name="invisible">1</attribute>
+            </xpath>
+
+        <!-- Add Manager Approval button -->
+        <xpath expr="//header" position="inside">
+            <button name="button_manager_approve"
+                    type="object"
+                    string="Manager Approval"
+                    class="oe_highlight"
+                    groups="purchase_approval.group_cash_rounding"
+                    invisible="state != 'to approve'"/>
+        </xpath>
+
+        <!-- Add Finance Approval button -->
+        <xpath expr="//header" position="inside">
+            <button name="button_finance_approve"
+                    type="object"
+                    string="Finance Approval"
+                    class="oe_highlight"
+                    groups="purchase_approval.group_sale_receipts"
+                    invisible="state != 'waiting finance approval'"/>
+        </xpath>
+        <!-- Add Director Approval button -->
+        <xpath expr="//header" position="inside">
+            <button name="button_director_approve"
+                    type="object"
+                    string="Director Approval"
+                    class="oe_highlight"
+                    groups="purchase_approval.group_warning_account"
+                    invisible="state != 'waiting director approval'"/>
+        </xpath>
+        <!-- Add Refuse button -->
+
+         <xpath expr="//header" position="inside">
+            <button name="%(action_purchase_refuse_wizard)d"
+                    type="action"
+                    string="Refuse"
+                    class="oe_highlight"
+                    context="{'default_refuse_reason': refuse_reason}"
+                    groups="purchase_approval.group_cash_rounding"  
+                    invisible="state != 'to approve'"/>
+        </xpath>
+
+        <!-- Refuse Button for Finance -->
+        <xpath expr="//header" position="inside">
+            <button name="%(action_purchase_refuse_wizard)d"
+                    type="action"
+                    string="Refuse"
+                    class="oe_highlight"
+                    context="{'default_refuse_reason': refuse_reason}"
+                    groups="purchase_approval.group_sale_receipts"  
+                    invisible="state != 'waiting finance approval'"/>
+        </xpath>
+
+        <!-- Refuse Button for Director -->
+        <xpath expr="//header" position="inside">
+            <button name="%(action_purchase_refuse_wizard)d"
+                    type="action"
+                    string="Refuse"
+                    class="oe_highlight"
+                    context="{'default_refuse_reason': refuse_reason}"
+                    groups="purchase_approval.group_warning_account" 
+                    invisible="state != 'waiting director approval'"/>
+        </xpath>
+
+    </field>
+</record>
+
+
+        <record id="view_purchase_order_form" model="ir.ui.view">
+          <field name="name">purchase.order</field>
+          <field name="model">purchase.order</field>
+          <field name="inherit_id" ref="purchase.purchase_order_form"/>
+          <field name="arch" type="xml">
+            
+            <xpath expr="//page[@name='purchase_delivery_invoice']" position="after">
+             <page string="Approve Information" name="approve_information" >
+                <h3>APPROVE INFORMATION</h3><hr></hr>
+                    <group>
+                        <group>
+                            <field name="manager_approval"/>
+                            <field name="finance_manager_approval"/>
+                            <field name="director_approval"/>
+                        </group>
+                        <group>
+                            <field name="manager_approval_date"/>
+                            <field name="finance_manager_approval_date"/>
+                            <field name="director_approval_date"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="purchase_manager"/>
+                        <field name="finance_manager"/>
+                        <field name="director_manager"/>
+                    </group>
+                <br></br>
+                <h3>REFUSE INFORMATION</h3><hr></hr>
+                <group>
+                    <field name="refused_by"/>
+                    <field name="refuse_date"/>
+                    <field name="refuse_reason"/>
+                </group>
+             </page>
+            </xpath>
+     
+          </field>
+       </record>
+</data>
+</odoo>

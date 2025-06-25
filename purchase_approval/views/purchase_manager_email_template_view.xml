@@ -1,0 +1,81 @@
+<odoo>
+    <data>
+        <record id="email_template_purchase_manager_notification" model="mail.template">
+            <field name="name">PO Approve Email Template</field>
+            <field name="model_id" ref="purchase.model_purchase_order"/>
+            <field name="subject">Purchase Order Requires Approval</field>
+            <field name="email_from">{{(user.email)}}</field>
+            <field name="email_to">nimish.21bcon478@jecrcu.edu.in</field>
+            <field name="body_html">
+                <![CDATA[
+                <p>Dear,</p>
+                <p>The purchase order "<t t-out="object.name"/>" requires your approval as its total amount is "<t t-out="object.amount_total"/>".</p>
+                <p>Thank you.</p>
+                ]]>
+            </field>
+        </record>
+
+        <record id="email_template_finance_manager_notification" model="mail.template">
+            <field name="name">PO Finance Approve Email Template</field>
+            <field name="model_id" ref="purchase.model_purchase_order"/>
+            <field name="subject">Purchase Order Requires Approval</field>
+            <field name="email_from">{{(user.email)}}</field>
+            <field name="email_to">nimish.21bcon478@jecrcu.edu.in</field>
+            <field name="body_html">
+                <![CDATA[
+                <p>Dear,</p>
+                <p>please approve "<t t-out="object.name"/>" , its total amount is "<t t-out="object.amount_total"/>".</p>
+                <p>Thank you.</p>
+                ]]>
+            </field>
+        </record>
+
+        <record id="email_template_director_notification" model="mail.template">
+            <field name="name">PO Director Approve Email Template</field>
+            <field name="model_id" ref="purchase.model_purchase_order"/>
+            <field name="subject">Purchase Order Requires Approval</field>
+            <field name="email_from">{{(user.email)}}</field>
+            <field name="email_to">nimish.21bcon478@jecrcu.edu.in</field>
+            <field name="body_html">
+                <![CDATA[
+                <p>Dear,</p>
+                <p>please approve "<t t-out="object.name"/>".</p>
+                <p>Regards,</p>
+                <p>Thank you.</p>
+                ]]>
+            </field>
+        </record>
+
+        <record id="email_template_director_approved_notification" model="mail.template">
+            <field name="name">PO  Approved Email Template</field>
+            <field name="model_id" ref="purchase.model_purchase_order"/>
+            <field name="subject">Purchase Order Confirmed</field>
+            <field name="email_from">{{(user.email)}}</field>
+            <field name="email_to">nimish.21bcon478@jecrcu.edu.in</field>
+            <field name="body_html">
+                <![CDATA[
+                <p>Dear User,</p>
+                <p>Your Order"<t t-out="object.name"/>"is approved.</p>
+                <p>Regards,</p>
+                <p>Thank you.</p>
+                ]]>
+            </field>
+        </record>
+
+
+        <record id="email_template_purchase_manager_refusal" model="mail.template">
+            <field name="name">PO Refuse Email Template</field>
+            <field name="model_id" ref="purchase.model_purchase_order"/>
+            <field name="subject">Purchase Order Requires Approval</field>
+            <field name="email_from">{{(user.email)}}</field>
+            <field name="email_to">nimish.21bcon478@jecrcu.edu.in</field>
+            <field name="body_html">
+                <![CDATA[
+                <p>Dear Purchase Manager,</p>
+                <p>Your purchase order "<t t-out="object.name"/>" is refused.</p>
+                <p>Thank you.</p>
+                ]]>
+            </field>
+        </record>
+    </data>
+</odoo>

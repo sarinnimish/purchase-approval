@@ -1,0 +1,20 @@
+{
+    'name': 'Purchase Approval',
+    'version': '1.0',
+    'category': 'Purchase',
+    'summary': 'Give Approval to Purchase orders',
+    'description': '''A simple module to manage Purchase orders in Odoo.''',
+    'author': 'Nimish sarin',
+    'depends': ['base','purchase'],
+    'data': [
+        'security/res_users_security.xml',
+        'security/ir.model.access.csv',
+        'views/purchase_company_view.xml',
+        'views/purchase_manager_email_template_view.xml',
+        'wizard/refuse_order_view.xml',
+        'views/purchase_order_view.xml',
+        'views/website_template_views.xml',
+    ],
+    'installable': True,
+    'application': True,
+}
